@@ -1,0 +1,63 @@
+\documentclass[a4paper,portrait,10pt,onecolumn]{article}
+\title{my work}
+\author{Swrajit paul}
+\begin{document}
+	\maketitle
+	\newpage
+	
+	\section{Background}
+		\subsection{Notation}
+			The sets $\Sigma$ and V are finite sets of symbols. $\Sigma$ is the set containing alphabet symbols and V is the set with Variables. The intersection of $\Sigma$ and V is the null set. $($\Sigma$ \cup V =\oslash)$ $\Sigma^{*}$ is the set containing all possible strings that can be derived from $\Sigma$, and $\Sigma^{q}$ the set of all possible strings of length q over $\Sigma$. The size of set is denoted by $|S|$. The character a i-th position of string S is denoted ny S[i].
+	\section{Informal Results / Main Theorem}
+		\subsection{Modified Algorithm}
+			\begin{flushleft}
+				FOLCA(Fully online grammar compression) uses dynamic tree structure and its $ O(\log n / \log \log n)$ operation time cannot be improved much further because of its proven lower bound. Therefore there needs to be other ways to im
+				The running time of FOLCA can be improved to $O(N/\alpha)$ Using the fact that FOLCA produces a
+				well balanced grammar, therefore the POPPT has of at most $2\logn$.
+				A new way to store the POSLP is proposed that takes $n\log(n+\sigma) + o(n\log(n+\sigma))$ space.
+				
+				
+			\end{flushleft}
+			
+		
+		\subsection{Reverse dictionary for inner variables}
+			If there is an inner variable deriving XY , at least one of the following conditions holds, where $v_X$  (resp. $v_Y$) is the corresponding node of X (resp. Y) in the POPPT:
+			\paragraph{(i)}
+				$v_X$ is a left child of its parent, and the parent has a right child (regardless of whether an internal node or leaf) representing Y , and
+			\paragraph{(ii)}
+			 $v_Y$ is a right child of its parent, and the parent has a left child (regardless of whether an internal node or leaf) representing X. Therefore, D−1(XY) can be looked up by a constant number of parent/child queries on B and access to L1. Moreover, the next lemma suggests that we do not need to check both conditions (i) and (ii); check (ii), if X < Y , and check (i), otherwise.
+			\paragraph{Lemma 3.}
+v				Let Z be an inner variable deriving $XY \in (V \cup \Sigma)$ , and $v_Z$ be the corresponding
+				node of Z in the POPPT. If X < Y , the right child of vZ is an internal node. Otherwise the left child of vZ is an internal node.
+				\cite[see][3.2.1]{latexcompanion}  \cite{einstein}.
+			\paragraph{Proof}
+				(Proof by contradiction)
+				 Assume that the right child of $v_Z$ is a leaf node which
+				represents Y. Since Z is inner variable according to the lemma, the left child of $v_Z$ must represent X. If Y is larger than X and smaller than Z, the internal node corresponding to Y must
+				be in the subtree rooted at the right child of $v_Z$ , which contradicts the assumption.
+				Assume that the left child of $v_Z$ is a leaf (which
+				represents X). Since Z is inner node, the right child of $v_Z$ must be the internal node representing
+				to Y . Since the internal node corresponding to X appears before the left child of vZ , X < Y
+				holds, therefore a contradiction.                                                       
+			\paragraph{Lemma 4.}  
+				 We can implement the reverse dictionary for inner variables that supports lookup in O(1) time.
+			
+		\subsection{Reverse dictionary for outer variables}
+			\paragraph{Lemma 5.} 
+			 	We can implement the reverse dictionary for outer variables to support lookup
+				in O(lg lg n) expected time.
+			\paragraph{Proof}
+				Recall that for any 1≤ i ≤ n0out the pair L2[i]L3[i] is the right-hand side of the i-th outer production rule (in post-order). Given i, we can compute the post-order number of the variable deriving L2[i]L3[i] by rank1(B,select001(B,i))+1. Hence, the task of our reverse dictionary is, given XY ∈(V ∪Σ)2, to return integer i such that L2[i]= X and L3[i]= Y, if such exists. If a phrase is found in the short suﬃx, the query is answered in O(1) expected time by using hash table. Thus, in what follows, we focus on the case where the answer is not found in the short suﬃx. By the GMRDS2 GB2 for L2[1,m0], we can compute in constant time, given an integer X, the range [iX,jX] in π2 such that the occurrences of X in L2 is represented by π2[iX,jX] in increasing order, namely, iX = rank1(GB2,select0(GB2,X)) + 1 and jX = rank1(GB2,select0(GB2,X +1)). Note that Y occurs in ˆ L3[iX,jX] (the occurrence is unique) iﬀ there is an outer variable deriving XY. In addition, if k ∈ [iX,jX] is the occurrence of Y, then π2[k] is the post-order number of the variable we seek. Hence, the
+				
+		\subsection{Access to the production rules of outer variables}
+			\paragraph{Lemma 6.}   
+				Given 1 ≤ i ≤ $n_out$, we can access L2[i]L3[i] in $\omicron O(\log \log n)$ time.
+			\paragraph{Proof}
+				 If i > n0out, L2[i]L3[i] is in the short suﬃxes. As we can aﬀord to store L2[i]L3[i] in a plain array of O(nout lgnout lglgnout )= o(noutlgnout) bits of space, we can access it in O(1) time. If i ≤ n0out, L2[i]L3[i] is represented by GMRs for L2[1,nout] and ˆ L3. Using GMRDS4 for L2[1,nout], we can compute j = π−1 2 [i] in O(lglgn) time. Then, we can obtain L2[i] by rank0(GB2,select1(GB2,j)) in O(1) time. In addition, L3[i] can be retrieved by accessing ˆ L3[j], which is supported in O(lglgn) time by GMR for ˆ L3. J To tell the truth, SOLCA does not access the production rules of outer variables during compression, and hence, the implementation of SOLCA is further simpliﬁed by deleting GMRDS4 for both L2[1,nout] and ˆ L3.
+		\subsection{SOLCA}
+			\paragraph{Theorem 7.}
+				Given a string of length N over an alphabet of size σ, SOLCA computes a succinct POSLP of the string in O(N lg lg n) expected time using $n \log(n + \sigma) + \omicron o(n \log(n + \sigma))$ bits of working space. \cite[A Space-Optimal Grammar Compression]{$1$}
+			\paragraph{Proof}
+				The input string processed online by SOLCA in the same way as FOLCA. When it compresses the string, it looks up the phrase in the reverse dictionary and if it doesn't exist then it adds the new variable to POSLP. Using the lemmas above(4 and 5), the compression and search for the variable in the reverse dictionary takes $O(\log \log n)$ time and $n\log(n+\sigma) + o(n\log(n+\sigma))$ bits of space.
+			
+\end{document}
